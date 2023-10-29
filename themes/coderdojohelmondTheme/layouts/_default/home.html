@@ -1,0 +1,32 @@
+{{ define "main" }}
+<div class="hero text-center py-5">
+  <h1 class="display-4">{{ .Site.Title }}</h1>
+  <p class="lead">{{ .Content }}</p>
+  <a href="{{ .Site.Params.aanmelden }}" class="btn btn-primary btn-md">Aanmelden</a>
+</div>
+<div class="pt-2 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  {{ range where site.RegularPages "Params.tags" "intersect" (slice "Dojo" "Nieuws") }}
+  <div class="col">
+    <div class="card border-0">
+      <img src="{{ with .Params.image }}{{ . }}{{ else }}/content/images/default-image.png{{ end }}"
+        class="card-img-top" alt="{{ .LinkTitle }}">
+      <div class="card-body">
+        <h4 class="card-title"><a href="{{ .RelPermalink }}" class="text-black text-decoration-none stretched-link">{{
+            .LinkTitle }}</a></h4>
+        <h6 class="card-subtitle mb-2 text-muted"><small>
+          {{ $tags := .Params.tags }}
+          {{ $tagCount := len $tags }}
+          {{ range $index, $tag := $tags }}
+          {{ $tag }}
+          {{ if ne (add $index 1) $tagCount }}, {{ end }}
+          {{ end }}
+        </small>
+        </h6>
+        <p class="card-text">{{ .Params.description }}</p>
+        <p class="card-text"><small class="text-muted">{{ .Date | time.Format ":date_long" }}</small></p>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

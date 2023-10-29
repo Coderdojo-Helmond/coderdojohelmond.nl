@@ -1,0 +1,23 @@
+baseURL = 'https://coderdojohelmond.nl/'
+languageCode = 'nl'
+title = 'CoderDojo Helmond'
+theme = 'coderdojohelmondTheme'
+relativeURLS = true
+defaultContentLanguage = "nl"
+
+[menu]
+  main = [
+    { name = "Home", weight = 1, identifier = "home", url = "/" },
+    { name = "Dojos", weight = 2, identifier = "dojos", url = "/dojos/" },
+    { name = "Materiaal", weight = 3, identifier = "materiaal", url = "/materiaal/" },
+    { name = "Over ons", weight = 4, identifier = "over-ons", url = "/over-ons/" },
+    { name = "Contact", weight = 5, identifier = "contact", url = "mailto:contact@coderdojohelmond.nl"}
+  ]
+
+[params]
+  aanmelden = "https://zen.coderdojo.com/dojos/nl/helmond/helmond-bibliotheek-helmond-peel"
+
+[module]
+  [[module.mounts]]
+    source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+    target = "assets/js/bootstrap.bundle.min.js"

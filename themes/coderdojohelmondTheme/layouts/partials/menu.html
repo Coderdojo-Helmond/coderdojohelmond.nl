@@ -1,0 +1,53 @@
+{{- /*
+Renders a menu based on the provided HTML structure.
+
+@context {page} page The current page.
+@context {string} menuID The menu ID.
+*/}}
+
+{{- $page := .page }}
+{{- $menuID := .menuID }}
+
+<div class="container">
+    <a class="navbar-brand" href="/">
+        <img src="/content/images/logo.png" alt="CoderDojo Helmond">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            {{- with index site.Menus $menuID }}
+                {{- partial "partials/inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+            {{- end }}
+        </ul>
+    </div>
+</div>
+
+{{- define "partials/inline/menu/walk.html" }}
+    {{- $page := .page }}
+    {{- range .menuEntries }}
+        {{- $attrs := dict "href" .URL }}
+        {{- if $page.IsMenuCurrent .Menu . }}
+            {{- $attrs = merge $attrs (dict "class" "nav-link") }}
+        {{- else if $page.HasMenuCurrent .Menu .}}
+            {{- $attrs = merge $attrs (dict "class" "nav-link ancestor") }}
+        {{- else }}
+            {{- $attrs = merge $attrs (dict "class" "nav-link") }}
+        {{- end }}
+        <li class="nav-item">
+            <a
+                {{- range $k, $v := $attrs }}
+                    {{- with $v }}
+                        {{- printf " %s=%q" $k $v | safeHTMLAttr }}
+                    {{- end }}
+                {{- end -}}
+            >{{ or .Name "" | safeHTML }}</a>
+            {{- with .Children }}
+                <ul class="navbar-nav">
+                    {{- partial "partials/inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+                </ul>
+            {{- end }}
+        </li>
+    {{- end }}
+{{- end }}

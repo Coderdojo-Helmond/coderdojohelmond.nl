@@ -1,0 +1,12 @@
+name = 'CoderDojo Helmond Theme'
+license = 'MIT'
+licenselink = 'https://github.com/owner/repo/LICENSE'
+description = 'Thema voor CoderDojo Helmond website'
+
+homepage = 'https://github.com/owner/repo'
+
+demosite = 'https://coderdojohelmond.nl'
+
+[author]
+  name = 'Stan van de Wiel'
+  homepage = 'https://stanvdwiel.nl'
