@@ -22,11 +22,14 @@ jobs:
       run: |
         npm install
       working-directory: .
+      
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: '0.110.0'
 
-    - name: Build Hugo site
-      run: |
-        hugo
-      working-directory: .
+    - name: Build
+      run: hugo --minify
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3.9.3
